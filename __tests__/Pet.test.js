@@ -24,4 +24,23 @@ describe('Pet constructor', () => {
     expect(() => new Pet(42)).toThrow(TypeError);
     expect(() => new Pet(false)).toThrow('name must be a string or undefined');
   });
+
+  it('sets age prop equal to 0', () => {
+    const pet = new Pet();
+    expect(pet.age).toBe(0);
+  });
+});
+
+describe('Pet prototype', () => {
+  it('has growUp method', () => {
+    expect(new Pet().growUp).toBeInstanceOf(Function);
+  });
+
+  it('growUp method increments pet age by 1', () => {
+    const pet = new Pet();
+    pet.growUp();
+    expect(pet.age).toBe(1);
+    pet.growUp();
+    expect(pet.age).toBe(2);
+  });
 });
