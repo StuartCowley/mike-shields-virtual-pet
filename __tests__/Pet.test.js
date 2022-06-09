@@ -9,13 +9,13 @@ describe('Pet constructor', () => {
     expect(new Pet()).toBeInstanceOf(Pet);
   });
 
-  it(`sets name prop equal to the name argument (if provided)`, () => {
+  it('sets name prop equal to the name argument (if provided)', () => {
     const name = 'Ollie';
     const pet = new Pet(name);
     expect(pet.name).toBe(name);
   });
 
-  it(`sets name prop that is undefined (if no name argument is provided)`, () => {
+  it('sets name prop that is undefined (if no name argument is provided)', () => {
     const pet = new Pet();
     expect(pet.name).toBeUndefined();
   });
