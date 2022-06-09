@@ -29,6 +29,11 @@ describe('Pet constructor', () => {
     const pet = new Pet();
     expect(pet.age).toBe(0);
   });
+
+  it('sets hunger prop equal to 0', () => {
+    const pet = new Pet();
+    expect(pet.hunger).toBe(0);
+  });
 });
 
 describe('Pet prototype', () => {
@@ -43,4 +48,11 @@ describe('Pet prototype', () => {
     pet.growUp();
     expect(pet.age).toBe(2);
   });
-});
+
+  it('growUp method increments hunger prop by 5', () => {
+    const pet = new Pet();
+    pet.growUp();
+    expect(pet.hunger).toBe(5);
+    pet.growUp();
+    expect(pet.hunger).toBe(10);
+  });
