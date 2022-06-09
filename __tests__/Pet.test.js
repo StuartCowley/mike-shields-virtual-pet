@@ -69,4 +69,24 @@ describe('Pet prototype', () => {
     pet.growUp();
     expect(pet.fitness).toBe(4);
   });
+
+  it('has walk method', () => {
+    const pet = new Pet();
+    expect(pet.walk).toBeInstanceOf(Function);
+  });
+
+  it('walk method increments pet fitness by 4 but is clamped to pet maxFitness', () => {
+    const pet = new Pet();
+    pet.fitness = pet.maxFitness - 1;
+
+    pet.walk();
+    expect(pet.fitness).toBe(10);
+
+    pet.fitness = 0;
+
+    pet.walk();
+    expect(pet.fitness).toBe(4);
+    pet.walk();
+    expect(pet.fitness).toBe(8);
+  });
 });

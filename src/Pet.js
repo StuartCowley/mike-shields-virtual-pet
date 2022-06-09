@@ -6,13 +6,23 @@ function Pet(name) {
   this.name = name;
   this.age = 0;
   this.hunger = 0;
-  this.fitness = 10;
+  this.maxFitness = 10;
+  this.fitness = this.maxFitness;
 }
 
 Pet.prototype.growUp = function() {
   this.age += 1;
   this.hunger += 5;
   this.fitness -= 3;
+};
+
+Pet.prototype.walk = function() {
+  const fitnessBoost = 4;
+  if (this.fitness + fitnessBoost > this.maxFitness) {
+    this.fitness = this.maxFitness;
+  } else {
+    this.fitness += fitnessBoost;
+  }
 };
 
 module.exports = Pet;
