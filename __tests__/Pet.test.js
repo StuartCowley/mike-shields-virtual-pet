@@ -62,7 +62,7 @@ describe('Pet prototype', () => {
     expect(pet.hunger).toBe(10);
   });
 
-  it('decrements the fitness prop by three', () => {
+  it('growUp method decrements the fitness prop by three', () => {
     const pet = new Pet();
     pet.growUp();
     expect(pet.fitness).toBe(7);
