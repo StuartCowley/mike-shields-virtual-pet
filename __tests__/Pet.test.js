@@ -34,6 +34,11 @@ describe('Pet constructor', () => {
     const pet = new Pet();
     expect(pet.hunger).toBe(0);
   });
+
+  it('sets fitness prop equal to 10', () => {
+    const pet = new Pet();
+    expect(pet.fitness).toBe(10);
+  });
 });
 
 describe('Pet prototype', () => {
@@ -56,3 +61,12 @@ describe('Pet prototype', () => {
     pet.growUp();
     expect(pet.hunger).toBe(10);
   });
+
+  it('decrements the fitness prop by three', () => {
+    const pet = new Pet();
+    pet.growUp();
+    expect(pet.fitness).toBe(7);
+    pet.growUp();
+    expect(pet.fitness).toBe(4);
+  });
+});
