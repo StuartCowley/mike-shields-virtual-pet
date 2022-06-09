@@ -75,9 +75,8 @@ describe('Pet prototype', () => {
     expect(pet.walk).toBeInstanceOf(Function);
   });
 
-  it('walk method increments pet fitness by 4 but is clamped to pet maxFitness', () => {
+  it('walk method increments pet fitness by FITNESS_INCREMENT, but is clamped to MAX_FITNESS', () => {
     const pet = new Pet();
-    pet.fitness = pet.maxFitness - 1;
 
     pet.walk();
     expect(pet.fitness).toBe(10);

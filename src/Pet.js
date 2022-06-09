@@ -1,27 +1,35 @@
 /* eslint-disable func-names */
+
+const AGE_INIT = 0;
+const AGE_INCREMENT = 1;
+
+const MAX_FITNESS = 10;
+const FITNESS_INCREMENT = 4;
+const FITNESS_DECREMENT = 3;
+
+const HUNGER_INIT = 0;
+const HUNGER_INCREMENT = 5;
 function Pet(name) {
   if (!(typeof name === 'string' || name === undefined)) {
     throw new TypeError('name must be a string or undefined');
   }
   this.name = name;
-  this.age = 0;
-  this.hunger = 0;
-  this.maxFitness = 10;
-  this.fitness = this.maxFitness;
+  this.age = AGE_INIT;
+  this.hunger = HUNGER_INIT;
+  this.fitness = MAX_FITNESS;
 }
 
 Pet.prototype.growUp = function() {
-  this.age += 1;
-  this.hunger += 5;
-  this.fitness -= 3;
+  this.age += AGE_INCREMENT;
+  this.hunger += HUNGER_INCREMENT;
+  this.fitness -= FITNESS_DECREMENT;
 };
 
 Pet.prototype.walk = function() {
-  const fitnessBoost = 4;
-  if (this.fitness + fitnessBoost > this.maxFitness) {
-    this.fitness = this.maxFitness;
+  if (this.fitness + FITNESS_INCREMENT > MAX_FITNESS) {
+    this.fitness = MAX_FITNESS;
   } else {
-    this.fitness += fitnessBoost;
+    this.fitness += FITNESS_INCREMENT;
   }
 };
 
