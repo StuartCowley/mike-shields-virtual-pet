@@ -1,4 +1,4 @@
-const Pet = require('../src/Pet');
+const { Pet, petConfig } = require('../src/Pet');
 
 describe('Pet constructor', () => {
   it('returns an object', () => {
@@ -25,19 +25,19 @@ describe('Pet constructor', () => {
     expect(() => new Pet(false)).toThrow('name must be a string or undefined');
   });
 
-  it('sets age prop equal to 0', () => {
+  it('sets age prop equal to petConfig.AGE_INIT', () => {
     const pet = new Pet();
-    expect(pet.age).toBe(0);
+    expect(pet.age).toBe(petConfig.AGE_INIT);
   });
 
-  it('sets hunger prop equal to 0', () => {
+  it('sets hunger prop equal to petConfig.HUNGER_INIT', () => {
     const pet = new Pet();
-    expect(pet.hunger).toBe(0);
+    expect(pet.hunger).toBe(petConfig.HUNGER_INIT);
   });
 
-  it('sets fitness prop equal to 10', () => {
+  it('sets fitness prop equal to petConfig.MAX_FITNESS', () => {
     const pet = new Pet();
-    expect(pet.fitness).toBe(10);
+    expect(pet.fitness).toBe(petConfig.MAX_FITNESS);
   });
 });
 
@@ -46,28 +46,38 @@ describe('Pet prototype', () => {
     expect(new Pet().growUp).toBeInstanceOf(Function);
   });
 
-  it('growUp method increments pet age by 1', () => {
+  it('growUp method increments pet age by petConfig.AGE_INCREMENT', () => {
     const pet = new Pet();
+
     pet.growUp();
-    expect(pet.age).toBe(1);
+    expect(pet.age).toBe(petConfig.AGE_INCREMENT);
+
     pet.growUp();
-    expect(pet.age).toBe(2);
+    expect(pet.age).toBe(petConfig.AGE_INCREMENT * 2);
   });
 
-  it('growUp method increments hunger prop by 5', () => {
+  it('growUp method increments hunger prop by petConfig.HUNGER_INCREMENT', () => {
     const pet = new Pet();
+
     pet.growUp();
-    expect(pet.hunger).toBe(5);
+    expect(pet.hunger).toBe(petConfig.HUNGER_INIT + petConfig.HUNGER_INCREMENT);
+
     pet.growUp();
-    expect(pet.hunger).toBe(10);
+    expect(pet.hunger).toBe(
+      petConfig.HUNGER_INIT + petConfig.HUNGER_INCREMENT * 2
+    );
   });
 
-  it('growUp method decrements the fitness prop by three', () => {
+  it('growUp method decrements the fitness prop by petConfig.FITNESS_DECREMENT', () => {
     const pet = new Pet();
     pet.growUp();
-    expect(pet.fitness).toBe(7);
+    expect(pet.fitness).toBe(
+      petConfig.MAX_FITNESS - petConfig.FITNESS_DECREMENT
+    );
     pet.growUp();
-    expect(pet.fitness).toBe(4);
+    expect(pet.fitness).toBe(
+      petConfig.MAX_FITNESS - 2 * petConfig.FITNESS_DECREMENT
+    );
   });
 
   it('has walk method', () => {
@@ -79,14 +89,15 @@ describe('Pet prototype', () => {
     const pet = new Pet();
 
     pet.walk();
-    expect(pet.fitness).toBe(10);
+    expect(pet.fitness).toBe(petConfig.MAX_FITNESS);
 
     pet.fitness = 0;
 
     pet.walk();
-    expect(pet.fitness).toBe(4);
+    expect(pet.fitness).toBe(petConfig.FITNESS_INCREMENT);
+
     pet.walk();
-    expect(pet.fitness).toBe(8);
+    expect(pet.fitness).toBe(petConfig.FITNESS_INCREMENT * 2);
   });
 
   it('has a feed method', () => {
@@ -96,12 +107,15 @@ describe('Pet prototype', () => {
 
   it('feed method decrements pet hunger by HUNGER_DECREMENT but is clamped to HUNGER_INIT', () => {
     const pet = new Pet();
+
     pet.hunger = 1;
+
     pet.feed();
-    expect(pet.hunger).toBe(0);
+    expect(pet.hunger).toBe(petConfig.HUNGER_INIT);
 
     pet.hunger = 4;
+
     pet.feed();
-    expect(pet.hunger).toBe(1);
+    expect(pet.hunger).toBe(4 - petConfig.HUNGER_DECREMENT);
   });
 });

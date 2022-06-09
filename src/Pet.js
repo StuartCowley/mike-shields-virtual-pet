@@ -41,4 +41,4 @@ Pet.prototype.feed = function() {
   }
 };
 
-module.exports = Pet;
+module.exports = { Pet, petConfig };
