@@ -9,6 +9,8 @@ const FITNESS_DECREMENT = 3;
 
 const HUNGER_INIT = 0;
 const HUNGER_INCREMENT = 5;
+const HUNGER_DECREMENT = 3;
+
 function Pet(name) {
   if (!(typeof name === 'string' || name === undefined)) {
     throw new TypeError('name must be a string or undefined');
@@ -30,6 +32,14 @@ Pet.prototype.walk = function() {
     this.fitness = MAX_FITNESS;
   } else {
     this.fitness += FITNESS_INCREMENT;
+  }
+};
+
+Pet.prototype.feed = function() {
+  if (this.hunger - HUNGER_DECREMENT < HUNGER_INIT) {
+    this.hunger = HUNGER_INIT;
+  } else {
+    this.hunger -= HUNGER_DECREMENT;
   }
 };
 

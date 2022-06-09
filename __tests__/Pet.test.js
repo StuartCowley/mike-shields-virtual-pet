@@ -88,4 +88,20 @@ describe('Pet prototype', () => {
     pet.walk();
     expect(pet.fitness).toBe(8);
   });
+
+  it('has a feed method', () => {
+    const pet = new Pet();
+    expect(pet.feed).toBeInstanceOf(Function);
+  });
+
+  it('feed method decrements pet hunger by HUNGER_DECREMENT but is clamped to HUNGER_INIT', () => {
+    const pet = new Pet();
+    pet.hunger = 1;
+    pet.feed();
+    expect(pet.hunger).toBe(0);
+
+    pet.hunger = 4;
+    pet.feed();
+    expect(pet.hunger).toBe(1);
+  });
 });
