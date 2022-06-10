@@ -48,10 +48,10 @@ Pet.prototype.checkUp = function() {
 
   if (this.fitness <= 3 && this.hunger >= 5) {
     petStatus = 'I am hungry AND I need a walk';
-  } else if (this.fitness <= petConfig.FITNESS_THRESHOLD) {
-    petStatus = 'I need a walk';
   } else if (this.hunger >= petConfig.HUNGER_THRESHOLD) {
     petStatus = 'I am hungry';
+  } else if (this.fitness <= petConfig.FITNESS_THRESHOLD) {
+    petStatus = 'I need a walk';
   }
   return petStatus;
 };
