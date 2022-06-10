@@ -138,8 +138,9 @@ describe('Pet prototype', () => {
     expect(pet.checkUp()).toBe('I am hungry');
   });
 
-  it(`checkUp method returns "I am hungry AND I need a walk" 
-      when pet hunger >= HUNGER_THRESHOLD and pet fitness <= FITNESS_THRESHOLD`, () => {
+  it(`checkUp method returns "I am hungry AND I need a walk" when 
+        pet hunger >= HUNGER_THRESHOLD and 
+        pet fitness <= FITNESS_THRESHOLD`, () => {
     const pet = new Pet();
 
     pet.hunger = petConfig.HUNGER_THRESHOLD;
@@ -148,10 +149,11 @@ describe('Pet prototype', () => {
     expect(pet.checkUp()).toBe('I am hungry AND I need a walk');
   });
 
-  it(`checkUp method returns "I feel great!" 
-      when pet hunger < HUNGER_THRESHOLD && pet fitness >= FITNESS_THRESHOLD`, () => {
+  it(`checkUp method returns "I feel great!" when 
+        pet hunger is less than HUNGER_THRESHOLD and 
+        pet fitness is greater than or equal to FITNESS_THRESHOLD`, () => {
     const pet = new Pet();
-    
+
     expect(pet.checkUp()).toBe('I feel great!');
   });
 });
