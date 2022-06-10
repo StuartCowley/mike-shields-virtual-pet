@@ -2,7 +2,22 @@
 
 # Virtual Pet
 
-*This repository is an assignment from the OOP track of the Manchester Codes Syllabus. See below for assignment brief:* 
+This repository is an assignment from the OOP track of the Manchester Codes Syllabus. The assignment is an opportunity to explore and practice:
+
+- The Git/GitHub workflow
+- Implementing Code in reference to User Stories
+- Test Driven Development concepts and techniques using Jest
+- Object Oriented Programming using Constructor Functions & Prototypical Inheritance
+- Getter Functions
+- Conditional logic
+- Implementing Guard Clauses & Throwing exceptions
+- Code Refactoring
+- Minimising hard-coded values such as "Magic Numbers"
+
+
+See below for assignment brief.
+
+---
 
 Real pets are great, but they do have drawbacks. They smell. Your mum might be allergic to them. Maybe you just aren't allowed one in your flat.
 
