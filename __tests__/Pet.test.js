@@ -100,13 +100,13 @@ describe('Pet prototype', () => {
     pet.walk();
     expect(pet.fitness).toBe(petConfig.MAX_FITNESS);
 
-    pet.fitness = 0;
+    pet.fitness = 1;
 
     pet.walk();
-    expect(pet.fitness).toBe(petConfig.FITNESS_INCREMENT);
+    expect(pet.fitness).toBe(1 + petConfig.FITNESS_INCREMENT);
 
     pet.walk();
-    expect(pet.fitness).toBe(petConfig.FITNESS_INCREMENT * 2);
+    expect(pet.fitness).toBe(1 + petConfig.FITNESS_INCREMENT * 2);
   });
 
   it('has a feed method', () => {
