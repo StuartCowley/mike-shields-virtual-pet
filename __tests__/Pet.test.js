@@ -46,6 +46,15 @@ describe('Pet prototype', () => {
     expect(new Pet().growUp).toBeInstanceOf(Function);
   });
 
+  it(`growUp method throws exception "Your pet is no longer alive"
+      when pet isAlive method returns false`, () => {
+    const pet = new Pet();
+
+    pet.fitness = 0;
+
+    expect(() => pet.growUp()).toThrow('Your pet is no longer alive');
+  });
+
   it('growUp method increments pet age by petConfig.AGE_INCREMENT', () => {
     const pet = new Pet();
 

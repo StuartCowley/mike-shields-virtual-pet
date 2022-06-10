@@ -22,6 +22,8 @@ function Pet(name) {
 }
 
 Pet.prototype.growUp = function() {
+  if (!this.isAlive) throw 'Your pet is no longer alive';
+
   this.age += petConfig.AGE_INCREMENT;
   this.hunger += petConfig.HUNGER_INCREMENT;
   this.fitness -= petConfig.FITNESS_DECREMENT;
