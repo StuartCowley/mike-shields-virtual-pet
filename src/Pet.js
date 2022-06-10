@@ -11,8 +11,8 @@ const petConfig = {
   HUNGER_INIT: 0,
   HUNGER_MAX: 10,
   HUNGER_INCREMENT: 5,
-  HUNGER_DECREMENT: 3
-  HUNGER_THRESHOLD: 5,
+  HUNGER_DECREMENT: 3,
+  HUNGER_THRESHOLD: 5
 };
 function Pet(name) {
   if (!(typeof name === 'string' || name === undefined)) {
