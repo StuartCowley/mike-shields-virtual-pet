@@ -157,6 +157,15 @@ describe('Pet prototype', () => {
     expect(pet.checkUp()).toBe('I feel great!');
   });
 
+  it(`checkUp method throws exception "Your pet is no longer alive"
+      when pet isAlive method returns false`, () => {
+    const pet = new Pet();
+
+    pet.fitness = 0;
+
+    expect(() => pet.checkUp()).toThrow('Your pet is no longer alive');
+  });
+
   it(`isAlive getter method returns true when 
       pet age is less than 30
       pet hunger is less than 10
@@ -168,7 +177,7 @@ describe('Pet prototype', () => {
 
   it('isAlive getter returns false when pet fitness is 0 or less', () => {
     const pet = new Pet();
-    
+
     pet.fitness = 0;
     expect(pet.isAlive).toBe(false);
 
@@ -178,7 +187,7 @@ describe('Pet prototype', () => {
 
   it('isAlive getter returns false when pet hunger 10 or more', () => {
     const pet = new Pet();
-    
+
     pet.hunger = 10;
     expect(pet.isAlive).toBe(false);
 
@@ -186,9 +195,9 @@ describe('Pet prototype', () => {
     expect(pet.isAlive).toBe(false);
   });
 
-  it('isAlive getter returns false when pet age is 30 or more', function() {
+  it('isAlive getter returns false when pet age is 30 or more', () => {
     const pet = new Pet();
-    
+
     pet.age = 30;
     expect(pet.isAlive).toBe(false);
 
