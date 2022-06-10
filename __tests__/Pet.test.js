@@ -156,4 +156,43 @@ describe('Pet prototype', () => {
 
     expect(pet.checkUp()).toBe('I feel great!');
   });
+
+  it(`isAlive getter method returns true when 
+      pet age is less than 30
+      pet hunger is less than 10
+      pet fitness is greater than 0`, () => {
+    const pet = new Pet();
+
+    expect(pet.isAlive).toBe(true);
+  });
+
+  it('isAlive getter returns false when pet fitness is 0 or less', () => {
+    const pet = new Pet();
+    
+    pet.fitness = 0;
+    expect(pet.isAlive).toBe(false);
+
+    pet.fitness = -1;
+    expect(pet.isAlive).toBe(false);
+  });
+
+  it('isAlive getter returns false when pet hunger 10 or more', () => {
+    const pet = new Pet();
+    
+    pet.hunger = 10;
+    expect(pet.isAlive).toBe(false);
+
+    pet.hunger = 11;
+    expect(pet.isAlive).toBe(false);
+  });
+
+  it('isAlive getter returns false when pet age is 30 or more', function() {
+    const pet = new Pet();
+    
+    pet.age = 30;
+    expect(pet.isAlive).toBe(false);
+
+    pet.age = 31;
+    expect(pet.isAlive).toBe(false);
+  });
 });

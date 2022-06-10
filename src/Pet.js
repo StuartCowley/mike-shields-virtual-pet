@@ -56,4 +56,10 @@ Pet.prototype.checkUp = function() {
   return petStatus;
 };
 
+Object.defineProperty(Pet.prototype, 'isAlive', {
+  get() {
+    return this.fitness > 0 && this.hunger < 10 && this.age < 30;
+  }
+});
+
 module.exports = { Pet, petConfig };
