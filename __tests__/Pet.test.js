@@ -85,6 +85,15 @@ describe('Pet prototype', () => {
     expect(pet.walk).toBeInstanceOf(Function);
   });
 
+  it(`walk method throws exception "Your pet is no longer alive"
+      when pet isAlive method returns false`, () => {
+    const pet = new Pet();
+
+    pet.fitness = 0;
+
+    expect(() => pet.walk()).toThrow('Your pet is no longer alive');
+  });
+
   it('walk method increments pet fitness by FITNESS_INCREMENT, but is clamped to MAX_FITNESS', () => {
     const pet = new Pet();
 

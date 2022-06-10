@@ -28,6 +28,8 @@ Pet.prototype.growUp = function() {
 };
 
 Pet.prototype.walk = function() {
+  if (!this.isAlive) throw 'Your pet is no longer alive';
+
   if (this.fitness + petConfig.FITNESS_INCREMENT > petConfig.MAX_FITNESS) {
     this.fitness = petConfig.MAX_FITNESS;
   } else {
