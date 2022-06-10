@@ -80,7 +80,7 @@ describe('Pet prototype', () => {
 describe('growUp method', () => {
   it('throws exception when isAlive returns false', () => {
     const pet = new Pet();
-    pet.fitness = FITNESS_MIN;
+    pet.age = AGE_MAX;
     expect(() => pet.growUp()).toThrow('Your pet is no longer alive');
   });
 
@@ -121,7 +121,7 @@ describe('growUp method', () => {
 describe('walk method', () => {
   it('throws exception when isAlive returns false', () => {
     const pet = new Pet();
-    pet.fitness = 0;
+    pet.age = AGE_MAX;
     expect(() => pet.walk()).toThrow('Your pet is no longer alive');
   });
 
@@ -142,7 +142,7 @@ describe('walk method', () => {
 describe('feed method', () => {
   it('throws exception when isAlive returns false', () => {
     const pet = new Pet();
-    pet.fitness = 0;
+    pet.age = AGE_MAX;
     expect(() => pet.feed()).toThrow('Your pet is no longer alive');
   });
 
@@ -161,7 +161,7 @@ describe('feed method', () => {
 describe('checkUp method', () => {
   it('throws exception when pet isAlive returns false', () => {
     const pet = new Pet();
-    pet.fitness = FITNESS_MIN;
+    pet.age = AGE_MAX;
     expect(() => pet.checkUp()).toThrow('Your pet is no longer alive');
   });
 
@@ -212,7 +212,7 @@ describe('isAlive getter method', () => {
     expect(pet.isAlive).toBe(false);
   });
 
-  it('returns false when hunger greater than or equal to HUNGER_MAX', () => {
+  it('returns false when hunger is greater than or equal to HUNGER_MAX', () => {
     const pet = new Pet();
     pet.hunger = HUNGER_MAX;
     expect(pet.isAlive).toBe(false);
