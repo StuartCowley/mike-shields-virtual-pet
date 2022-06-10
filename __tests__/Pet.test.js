@@ -193,6 +193,12 @@ describe('Pet prototype', () => {
     expect(() => pet.checkUp()).toThrow('Your pet is no longer alive');
   });
 
+  it('has isAlive getter method', () => {
+    const pet = new Pet();
+
+    expect(Object.getOwnPropertyDescriptor(Pet.prototype, 'isAlive').get).toBeInstanceOf(Function);
+  });
+
   it(`isAlive getter method returns true when 
       pet age is less than 30
       pet hunger is less than 10
