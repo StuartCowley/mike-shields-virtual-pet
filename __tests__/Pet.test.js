@@ -1,5 +1,21 @@
 const { Pet, petConfig } = require('../src/Pet');
 
+const {
+  AGE_INIT,
+  AGE_INCREMENT,
+  AGE_MAX,
+  FITNESS_INIT,
+  FITNESS_MIN,
+  FITNESS_INCREMENT,
+  FITNESS_DECREMENT,
+  FITNESS_THRESHOLD,
+  HUNGER_INIT,
+  HUNGER_MAX,
+  HUNGER_THRESHOLD,
+  HUNGER_INCREMENT,
+  HUNGER_DECREMENT
+} = petConfig;
+
 describe('Pet constructor', () => {
   it('returns an object', () => {
     expect(new Pet()).toBeInstanceOf(Object);
@@ -9,232 +25,208 @@ describe('Pet constructor', () => {
     expect(new Pet()).toBeInstanceOf(Pet);
   });
 
-  it('sets name prop equal to the name argument (if provided)', () => {
-    const name = 'Ollie';
-    const pet = new Pet(name);
-    expect(pet.name).toBe(name);
-  });
-
-  it('sets name prop that is undefined (if no name argument is provided)', () => {
-    const pet = new Pet();
-    expect(pet.name).toBeUndefined();
-  });
-
-  it('throws a TypeError if the name argument is not a string', () => {
+  it('throws TypeError if the name argument is not <string>', () => {
     expect(() => new Pet(42)).toThrow(TypeError);
     expect(() => new Pet(false)).toThrow('name must be a string or undefined');
   });
+});
 
-  it('sets age prop equal to petConfig.AGE_INIT', () => {
-    const pet = new Pet();
-    expect(pet.age).toBe(petConfig.AGE_INIT);
+describe('Pet instance', () => {
+  it('name initialised as name argument (if provided)', () => {
+    expect(new Pet('Ollie').name).toBe('Ollie');
   });
 
-  it('sets hunger prop equal to petConfig.HUNGER_INIT', () => {
-    const pet = new Pet();
-    expect(pet.hunger).toBe(petConfig.HUNGER_INIT);
+  it('name initialised as undefined (if name argument not provided)', () => {
+    expect(new Pet().name).toBeUndefined();
   });
 
-  it('sets fitness prop equal to petConfig.MAX_FITNESS', () => {
-    const pet = new Pet();
-    expect(pet.fitness).toBe(petConfig.MAX_FITNESS);
+  it('age initialised as AGE_INIT', () => {
+    expect(new Pet().age).toBe(AGE_INIT);
+  });
+
+  it('hunger intitialised as HUNGER_INIT', () => {
+    expect(new Pet().hunger).toBe(HUNGER_INIT);
+  });
+
+  it('fitness initialised as FITNESS_INIT', () => {
+    expect(new Pet().fitness).toBe(FITNESS_INIT);
   });
 });
 
 describe('Pet prototype', () => {
   it('has growUp method', () => {
-    expect(new Pet().growUp).toBeInstanceOf(Function);
-  });
-
-  it(`growUp method throws exception "Your pet is no longer alive"
-      when pet isAlive method returns false`, () => {
-    const pet = new Pet();
-
-    pet.fitness = 0;
-
-    expect(() => pet.growUp()).toThrow('Your pet is no longer alive');
-  });
-
-  it('growUp method increments pet age by petConfig.AGE_INCREMENT', () => {
-    const pet = new Pet();
-
-    pet.growUp();
-    expect(pet.age).toBe(petConfig.AGE_INCREMENT);
-
-    pet.growUp();
-    expect(pet.age).toBe(petConfig.AGE_INCREMENT * 2);
-  });
-
-  it('growUp method increments hunger prop by petConfig.HUNGER_INCREMENT', () => {
-    const pet = new Pet();
-
-    pet.growUp();
-    expect(pet.hunger).toBe(petConfig.HUNGER_INIT + petConfig.HUNGER_INCREMENT);
-
-    pet.growUp();
-    expect(pet.hunger).toBe(
-      petConfig.HUNGER_INIT + petConfig.HUNGER_INCREMENT * 2
-    );
-  });
-
-  it('growUp method decrements the fitness prop by petConfig.FITNESS_DECREMENT', () => {
-    const pet = new Pet();
-    pet.growUp();
-    expect(pet.fitness).toBe(
-      petConfig.MAX_FITNESS - petConfig.FITNESS_DECREMENT
-    );
-    pet.growUp();
-    expect(pet.fitness).toBe(
-      petConfig.MAX_FITNESS - 2 * petConfig.FITNESS_DECREMENT
-    );
+    expect(Pet.prototype.growUp).toBeInstanceOf(Function);
   });
 
   it('has walk method', () => {
-    const pet = new Pet();
-    expect(pet.walk).toBeInstanceOf(Function);
+    expect(Pet.prototype.walk).toBeInstanceOf(Function);
   });
 
-  it(`walk method throws exception "Your pet is no longer alive"
-      when pet isAlive method returns false`, () => {
-    const pet = new Pet();
-
-    pet.fitness = 0;
-
-    expect(() => pet.walk()).toThrow('Your pet is no longer alive');
+  it('has feed method', () => {
+    expect(Pet.prototype.feed).toBeInstanceOf(Function);
   });
 
-  it('walk method increments pet fitness by FITNESS_INCREMENT, but is clamped to MAX_FITNESS', () => {
-    const pet = new Pet();
-
-    pet.walk();
-    expect(pet.fitness).toBe(petConfig.MAX_FITNESS);
-
-    pet.fitness = 1;
-
-    pet.walk();
-    expect(pet.fitness).toBe(1 + petConfig.FITNESS_INCREMENT);
-
-    pet.walk();
-    expect(pet.fitness).toBe(1 + petConfig.FITNESS_INCREMENT * 2);
-  });
-
-  it('has a feed method', () => {
-    const pet = new Pet();
-    expect(pet.feed).toBeInstanceOf(Function);
-  });
-
-  it(`feed method throws exception "Your pet is no longer alive"
-    when pet isAlive method returns false`, () => {
-    const pet = new Pet();
-
-    pet.fitness = 0;
-
-    expect(() => pet.feed()).toThrow('Your pet is no longer alive');
-  });
-
-  it('feed method decrements pet hunger by HUNGER_DECREMENT but is clamped to HUNGER_INIT', () => {
-    const pet = new Pet();
-
-    pet.hunger = 1;
-
-    pet.feed();
-    expect(pet.hunger).toBe(petConfig.HUNGER_INIT);
-
-    pet.hunger = 4;
-
-    pet.feed();
-    expect(pet.hunger).toBe(4 - petConfig.HUNGER_DECREMENT);
-  });
-
-  it('has a checkUp method', () => {
-    const pet = new Pet();
-    expect(pet.checkUp).toBeInstanceOf(Function);
-  });
-
-  it('checkUp method returns "I need a walk" when pet fitness <= FITNESS_THRESHOLD', () => {
-    const pet = new Pet();
-    pet.fitness = petConfig.FITNESS_THRESHOLD;
-
-    expect(pet.checkUp()).toBe('I need a walk');
-  });
-
-  it('checkUp method returns "I am hungry" when pet hunger >= HUNGER_THRESHOLD', () => {
-    const pet = new Pet();
-    pet.hunger = petConfig.HUNGER_THRESHOLD;
-
-    expect(pet.checkUp()).toBe('I am hungry');
-  });
-
-  it(`checkUp method returns "I am hungry AND I need a walk" when 
-        pet hunger >= HUNGER_THRESHOLD and 
-        pet fitness <= FITNESS_THRESHOLD`, () => {
-    const pet = new Pet();
-
-    pet.hunger = petConfig.HUNGER_THRESHOLD;
-    pet.fitness = petConfig.FITNESS_THRESHOLD;
-
-    expect(pet.checkUp()).toBe('I am hungry AND I need a walk');
-  });
-
-  it(`checkUp method returns "I feel great!" when 
-        pet hunger is less than HUNGER_THRESHOLD and 
-        pet fitness is greater than or equal to FITNESS_THRESHOLD`, () => {
-    const pet = new Pet();
-
-    expect(pet.checkUp()).toBe('I feel great!');
-  });
-
-  it(`checkUp method throws exception "Your pet is no longer alive"
-      when pet isAlive method returns false`, () => {
-    const pet = new Pet();
-
-    pet.fitness = 0;
-
-    expect(() => pet.checkUp()).toThrow('Your pet is no longer alive');
+  it('has checkUp method', () => {
+    expect(Pet.prototype.checkUp).toBeInstanceOf(Function);
   });
 
   it('has isAlive getter method', () => {
-    const pet = new Pet();
+    expect(
+      Object.getOwnPropertyDescriptor(Pet.prototype, 'isAlive').get
+    ).toBeInstanceOf(Function);
+  });
+});
 
-    expect(Object.getOwnPropertyDescriptor(Pet.prototype, 'isAlive').get).toBeInstanceOf(Function);
+describe('growUp method', () => {
+  it('throws exception when isAlive returns false', () => {
+    const pet = new Pet();
+    pet.fitness = FITNESS_MIN;
+    expect(() => pet.growUp()).toThrow('Your pet is no longer alive');
   });
 
-  it(`isAlive getter method returns true when 
-      pet age is less than 30
-      pet hunger is less than 10
-      pet fitness is greater than 0`, () => {
+  it('increments age by AGE_INCREMENT', () => {
     const pet = new Pet();
+    pet.growUp();
+    expect(pet.age).toBe(AGE_INCREMENT);
+  
+    pet.growUp();
+    expect(pet.age).toBe(AGE_INCREMENT * 2);
+  });
 
+  it('increments hunger by HUNGER_INCREMENT', () => {
+    const pet = new Pet();
+    pet.growUp();
+    expect(pet.hunger).toBe(HUNGER_INIT + HUNGER_INCREMENT);
+
+    pet.growUp();
+    expect(pet.hunger).toBe(
+      HUNGER_INIT + HUNGER_INCREMENT * 2
+    );
+  });
+
+  it('decrements fitness by FITNESS_DECREMENT', () => {
+    const pet = new Pet();
+    pet.growUp();
+    expect(pet.fitness).toBe(
+      FITNESS_INIT - FITNESS_DECREMENT
+    );
+
+    pet.growUp();
+    expect(pet.fitness).toBe(
+      FITNESS_INIT - 2 * FITNESS_DECREMENT
+    );
+  });
+})
+
+describe('walk method', () => {
+  it('throws exception when isAlive returns false', () => {
+    const pet = new Pet();
+    pet.fitness = 0;
+    expect(() => pet.walk()).toThrow('Your pet is no longer alive');
+  });
+
+  it('increments fitness by FITNESS_INCREMENT, but is clamped to FITNESS_INIT', () => {
+    const pet = new Pet();
+    pet.walk();
+    expect(pet.fitness).toBe(FITNESS_INIT);
+
+    pet.fitness = 1;
+    pet.walk();
+    expect(pet.fitness).toBe(1 + FITNESS_INCREMENT);
+
+    pet.walk();
+    expect(pet.fitness).toBe(1 + FITNESS_INCREMENT * 2);
+  });
+});
+
+describe('feed method', () => {
+  it('throws exception when isAlive returns false', () => {
+    const pet = new Pet();
+    pet.fitness = 0;
+    expect(() => pet.feed()).toThrow('Your pet is no longer alive');
+  });
+
+  it('decrements hunger by HUNGER_DECREMENT but is clamped to HUNGER_INIT', () => {
+    const pet = new Pet();
+    pet.hunger = 1;
+    pet.feed();
+    expect(pet.hunger).toBe(HUNGER_INIT);
+
+    pet.hunger = 4;
+    pet.feed();
+    expect(pet.hunger).toBe(4 - HUNGER_DECREMENT);
+  });
+});
+
+describe('checkUp method', () => {
+  it('throws exception when pet isAlive returns false', () => {
+    const pet = new Pet();
+    pet.fitness = FITNESS_MIN;
+    expect(() => pet.checkUp()).toThrow('Your pet is no longer alive');
+  });
+
+  it(`returns "I need a walk" when fitness is less than or equal to FITNESS_THRESHOLD`, () => {
+    const pet = new Pet();
+    pet.fitness = FITNESS_THRESHOLD;
+    expect(pet.checkUp()).toBe('I need a walk');
+  });
+
+  it(`returns "I am hungry" when hunger is greater than or equal to HUNGER_THRESHOLD`, () => {
+    const pet = new Pet();
+    pet.hunger = HUNGER_THRESHOLD;
+    expect(pet.checkUp()).toBe('I am hungry');
+  });
+
+  it(`returns "I am hungry AND I need a walk" when 
+      hunger is greater than or equal to HUNGER_THRESHOLD and 
+      fitness is less than or equal to FITNESS_THRESHOLD`, () => {
+    const pet = new Pet();
+    pet.hunger = HUNGER_THRESHOLD;
+    pet.fitness = FITNESS_THRESHOLD;
+    expect(pet.checkUp()).toBe('I am hungry AND I need a walk');
+  });
+
+  it(`returns "I feel great!" when 
+      hunger is less than HUNGER_THRESHOLD and 
+      fitness is greater than or equal to FITNESS_THRESHOLD`, () => {
+    const pet = new Pet();
+    expect(pet.checkUp()).toBe('I feel great!');
+  });
+});
+
+describe('isAlive getter method', () => {
+  it(`returns true when 
+      age is less than AGE_MAX and
+      hunger is less than HUNGER_MAX and
+      fitness is greater than FITNESS_MIN`, () => {
+    const pet = new Pet();
     expect(pet.isAlive).toBe(true);
   });
 
-  it('isAlive getter returns false when pet fitness is 0 or less', () => {
+  it('returns false when fitness is less than or equal to FITNESS_MIN', () => {
     const pet = new Pet();
-
-    pet.fitness = 0;
+    pet.fitness = FITNESS_MIN;
     expect(pet.isAlive).toBe(false);
 
-    pet.fitness = -1;
+    pet.fitness = FITNESS_MIN - 1;
     expect(pet.isAlive).toBe(false);
   });
 
-  it('isAlive getter returns false when pet hunger 10 or more', () => {
+  it('returns false when hunger greater than or equal to HUNGER_MAX', () => {
     const pet = new Pet();
-
-    pet.hunger = 10;
+    pet.hunger = HUNGER_MAX;
     expect(pet.isAlive).toBe(false);
 
-    pet.hunger = 11;
+    pet.hunger = HUNGER_MAX + 1;
     expect(pet.isAlive).toBe(false);
   });
 
-  it('isAlive getter returns false when pet age is 30 or more', () => {
+  it('returns false when age is AGE_MAX or more', () => {
     const pet = new Pet();
-
-    pet.age = 30;
+    pet.age = AGE_MAX;
     expect(pet.isAlive).toBe(false);
 
-    pet.age = 31;
+    pet.age = AGE_MAX + 1;
     expect(pet.isAlive).toBe(false);
   });
 });
