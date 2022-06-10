@@ -40,6 +40,8 @@ Pet.prototype.walk = function() {
 };
 
 Pet.prototype.feed = function() {
+  if (!this.isAlive) throw 'Your pet is no longer alive';
+
   if (this.hunger - petConfig.HUNGER_DECREMENT < petConfig.HUNGER_INIT) {
     this.hunger = petConfig.HUNGER_INIT;
   } else {
@@ -49,7 +51,7 @@ Pet.prototype.feed = function() {
 
 Pet.prototype.checkUp = function() {
   if (!this.isAlive) throw 'Your pet is no longer alive';
-  
+
   let petStatus = 'I feel great!';
   if (this.fitness <= 3 && this.hunger >= 5) {
     petStatus = 'I am hungry AND I need a walk';

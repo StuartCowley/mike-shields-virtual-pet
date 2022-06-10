@@ -123,6 +123,15 @@ describe('Pet prototype', () => {
     expect(pet.feed).toBeInstanceOf(Function);
   });
 
+  it(`feed method throws exception "Your pet is no longer alive"
+    when pet isAlive method returns false`, () => {
+    const pet = new Pet();
+
+    pet.fitness = 0;
+
+    expect(() => pet.feed()).toThrow('Your pet is no longer alive');
+  });
+
   it('feed method decrements pet hunger by HUNGER_DECREMENT but is clamped to HUNGER_INIT', () => {
     const pet = new Pet();
 
