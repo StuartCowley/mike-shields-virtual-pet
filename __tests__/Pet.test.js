@@ -79,6 +79,10 @@ describe('Pet prototype', () => {
       Object.getOwnPropertyDescriptor(Pet.prototype, 'isAlive').get
     ).toBeInstanceOf(Function);
   });
+
+  it('has adoptChild method', () => {
+    expect(new Pet().adoptChild).toBeInstanceOf(Function);
+  });
 });
 
 describe('growUp method', () => {
