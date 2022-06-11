@@ -238,3 +238,18 @@ describe('isAlive getter method', () => {
     expect(pet.isAlive).toBe(false);
   });
 });
+
+describe('haveBaby', () => {
+  it('throws exception when isAlive returns false', () => {
+    const pet = new Pet()
+    pet.age = AGE_MAX
+    expect(() => pet.haveBaby()).toThrow('Your pet is no longer alive');
+  });
+
+  it('adds new Pet instance to children array', () => {
+    const pet = new Pet();
+    pet.haveBaby();
+    expect(pet.children.length).toBe(1);
+    expect(pet.children[0]).toBeInstanceOf(Pet);
+  });
+});

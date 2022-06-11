@@ -71,15 +71,18 @@ Pet.prototype.checkUp = function() {
 };
 
 Pet.prototype.haveBaby = function (name) {
+  if(!this.isAlive) throw 'Your pet is no longer alive';
+  this.children = [new Pet(name), ...this.children];
 }
+
 Object.defineProperty(Pet.prototype, 'isAlive', {
   get() {
     return (
       this.fitness > petConfig.FITNESS_MIN &&
       this.hunger < petConfig.HUNGER_MAX &&
       this.age < petConfig.AGE_MAX
-    );
-  }
-});
+      );
+    }
+  });
 
 module.exports = { Pet, petConfig };
