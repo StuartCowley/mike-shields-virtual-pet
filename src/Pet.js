@@ -22,6 +22,7 @@ function Pet(name) {
   this.age = petConfig.AGE_INIT;
   this.hunger = petConfig.HUNGER_INIT;
   this.fitness = petConfig.FITNESS_INIT;
+  this.children = [];
 }
 
 Pet.prototype.growUp = function() {
