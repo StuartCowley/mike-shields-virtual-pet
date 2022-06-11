@@ -70,6 +70,8 @@ Pet.prototype.checkUp = function() {
   return petStatus;
 };
 
+Pet.prototype.haveBaby = function (name) {
+}
 Object.defineProperty(Pet.prototype, 'isAlive', {
   get() {
     return (
