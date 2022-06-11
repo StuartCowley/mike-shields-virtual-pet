@@ -71,6 +71,11 @@ Pet.prototype.checkUp = function() {
 };
 
 Pet.prototype.adoptChild = function(child) {
+  if (!this.isAlive) throw 'Parent pet is no longer alive';
+  if (!(child instanceof Pet)) throw 'Pets can only adopt other pets';
+  if (child instanceof Pet && !child.isAlive) throw 'Child pet is no longer alive';
+
+  this.children = [child, ...this.children];
 }
 
 Object.defineProperty(Pet.prototype, 'isAlive', {
