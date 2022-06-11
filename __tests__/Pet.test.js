@@ -167,7 +167,7 @@ describe('feed method', () => {
 });
 
 describe('checkUp method', () => {
-  it('throws exception when pet isAlive returns false', () => {
+  it('throws exception when isAlive returns false', () => {
     const pet = new Pet();
     pet.age = AGE_MAX;
     expect(() => pet.checkUp()).toThrow('Your pet is no longer alive');
