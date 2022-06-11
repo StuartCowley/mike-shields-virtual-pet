@@ -1,4 +1,4 @@
-const { Pet, petConfig } = require('../src/Pet');
+const { Pet, config } = require('../src/Pet');
 
 const {
   AGE_INIT,
@@ -14,7 +14,7 @@ const {
   HUNGER_THRESHOLD,
   HUNGER_INCREMENT,
   HUNGER_DECREMENT
-} = petConfig;
+} = config;
 
 describe('Pet constructor', () => {
   it('returns an object', () => {

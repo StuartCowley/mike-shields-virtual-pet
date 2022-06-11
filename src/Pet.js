@@ -1,5 +1,5 @@
 /* eslint-disable func-names */
-const petConfig = {
+const config = {
   AGE_INIT: 0,
   AGE_MAX: 30,
   AGE_INCREMENT: 1,
@@ -28,28 +28,28 @@ function Pet(name) {
 Pet.prototype.growUp = function() {
   if (!this.isAlive) throw 'Your pet is no longer alive';
 
-  this.age += petConfig.AGE_INCREMENT;
-  this.hunger += petConfig.HUNGER_INCREMENT;
-  this.fitness -= petConfig.FITNESS_DECREMENT;
+  this.age += config.AGE_INCREMENT;
+  this.hunger += config.HUNGER_INCREMENT;
+  this.fitness -= config.FITNESS_DECREMENT;
 };
 
 Pet.prototype.walk = function() {
   if (!this.isAlive) throw 'Your pet is no longer alive';
 
-  if (this.fitness + petConfig.FITNESS_INCREMENT > petConfig.FITNESS_INIT) {
-    this.fitness = petConfig.FITNESS_INIT;
+  if (this.fitness + config.FITNESS_INCREMENT > config.FITNESS_INIT) {
+    this.fitness = config.FITNESS_INIT;
   } else {
-    this.fitness += petConfig.FITNESS_INCREMENT;
+    this.fitness += config.FITNESS_INCREMENT;
   }
 };
 
 Pet.prototype.feed = function() {
   if (!this.isAlive) throw 'Your pet is no longer alive';
 
-  if (this.hunger - petConfig.HUNGER_DECREMENT < petConfig.HUNGER_INIT) {
-    this.hunger = petConfig.HUNGER_INIT;
+  if (this.hunger - config.HUNGER_DECREMENT < config.HUNGER_INIT) {
+    this.hunger = config.HUNGER_INIT;
   } else {
-    this.hunger -= petConfig.HUNGER_DECREMENT;
+    this.hunger -= config.HUNGER_DECREMENT;
   }
 };
 
@@ -58,13 +58,13 @@ Pet.prototype.checkUp = function() {
 
   let petStatus = 'I feel great!';
   if (
-    this.fitness <= petConfig.FITNESS_THRESHOLD &&
-    this.hunger >= petConfig.HUNGER_THRESHOLD
+    this.fitness <= config.FITNESS_THRESHOLD &&
+    this.hunger >= config.HUNGER_THRESHOLD
   ) {
     petStatus = 'I am hungry AND I need a walk';
-  } else if (this.hunger >= petConfig.HUNGER_THRESHOLD) {
+  } else if (this.hunger >= config.HUNGER_THRESHOLD) {
     petStatus = 'I am hungry';
-  } else if (this.fitness <= petConfig.FITNESS_THRESHOLD) {
+  } else if (this.fitness <= config.FITNESS_THRESHOLD) {
     petStatus = 'I need a walk';
   }
   return petStatus;
@@ -73,11 +73,11 @@ Pet.prototype.checkUp = function() {
 Object.defineProperty(Pet.prototype, 'isAlive', {
   get() {
     return (
-      this.fitness > petConfig.FITNESS_MIN &&
-      this.hunger < petConfig.HUNGER_MAX &&
-      this.age < petConfig.AGE_MAX
+      this.fitness > config.FITNESS_MIN &&
+      this.hunger < config.HUNGER_MAX &&
+      this.age < config.AGE_MAX
     );
   }
 });
 
-module.exports = { Pet, petConfig };
+module.exports = { Pet, config };
