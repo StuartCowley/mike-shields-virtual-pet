@@ -51,6 +51,10 @@ describe('Pet instance', () => {
   it('fitness initialised as FITNESS_INIT', () => {
     expect(new Pet().fitness).toBe(FITNESS_INIT);
   });
+
+  it('children initialised as empty array', () => {
+    expect(new Pet().children).toEqual([]);
+  })
 });
 
 describe('Pet prototype', () => {

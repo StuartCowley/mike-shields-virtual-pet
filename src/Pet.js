@@ -19,9 +19,10 @@ function Pet(name) {
     throw new TypeError('name must be a string or undefined');
   }
   this.name = name;
-  this.age = petConfig.AGE_INIT;
-  this.hunger = petConfig.HUNGER_INIT;
-  this.fitness = petConfig.FITNESS_INIT;
+  this.age = config.AGE_INIT;
+  this.hunger = config.HUNGER_INIT;
+  this.fitness = config.FITNESS_INIT;
+  this.children = [];
 }
 
 Pet.prototype.growUp = function() {
