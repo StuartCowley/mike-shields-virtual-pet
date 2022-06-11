@@ -267,3 +267,12 @@ describe('adoptChild method', () => {
     expect(parentPet.children).toContain(childPet);
   });
 });
+
+describe('children', () => {
+  it('properties are accessible via parent', () => {
+    const parent = new Pet();
+    const child = new Pet();
+    parent.adoptChild(child);
+    expect(parent.children[0].age).toBe(child.age);
+  });
+});
