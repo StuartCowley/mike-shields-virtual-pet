@@ -1,4 +1,4 @@
-const { Pet, petConfig } = require('../src/Pet');
+const { Pet, petConfig } = require('../src/PetClass');
 
 const {
   AGE_INIT,
@@ -16,7 +16,7 @@ const {
   HUNGER_DECREMENT
 } = petConfig;
 
-describe('Pet constructor', () => {
+describe('Pet class', () => {
   it('returns an object', () => {
     expect(new Pet()).toBeInstanceOf(Object);
   });
@@ -88,7 +88,7 @@ describe('growUp method', () => {
     const pet = new Pet();
     pet.growUp();
     expect(pet.age).toBe(AGE_INCREMENT);
-  
+
     pet.growUp();
     expect(pet.age).toBe(AGE_INCREMENT * 2);
   });
@@ -99,24 +99,18 @@ describe('growUp method', () => {
     expect(pet.hunger).toBe(HUNGER_INIT + HUNGER_INCREMENT);
 
     pet.growUp();
-    expect(pet.hunger).toBe(
-      HUNGER_INIT + HUNGER_INCREMENT * 2
-    );
+    expect(pet.hunger).toBe(HUNGER_INIT + HUNGER_INCREMENT * 2);
   });
 
   it('decrements fitness by FITNESS_DECREMENT', () => {
     const pet = new Pet();
     pet.growUp();
-    expect(pet.fitness).toBe(
-      FITNESS_INIT - FITNESS_DECREMENT
-    );
+    expect(pet.fitness).toBe(FITNESS_INIT - FITNESS_DECREMENT);
 
     pet.growUp();
-    expect(pet.fitness).toBe(
-      FITNESS_INIT - 2 * FITNESS_DECREMENT
-    );
+    expect(pet.fitness).toBe(FITNESS_INIT - 2 * FITNESS_DECREMENT);
   });
-})
+});
 
 describe('walk method', () => {
   it('throws exception when isAlive returns false', () => {
